@@ -42,3 +42,13 @@ export async function stopServer(id: string) {
     console.log(error);
   }
 }
+export async function getLogs(id: string) {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_SERVER_URL}/server/${id}/logs`,
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

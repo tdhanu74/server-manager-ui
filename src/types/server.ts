@@ -1,7 +1,7 @@
 export type Server = {
-  id?: string;
+  id: string;
   name: string;
   type: string;
-  maxlimit?: number;
-  entrypoint: string;
+  running: boolean;
+  logs?: string[];
 };
