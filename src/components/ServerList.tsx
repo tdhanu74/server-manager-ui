@@ -1,12 +1,9 @@
-import { useState, useEffect } from "react";
 import { ServerListItem } from "./";
 import { type Server } from "../types";
 import { getLogs } from "../service/server";
-import { useDarkModeContext } from "../contexts/DarkMode";
 import { useSelectedServerContext } from "../contexts/SelectedServer";
 
 export function ServerList({ serverList }: { serverList: Server[] }) {
-  const { darkMode } = useDarkModeContext();
   const { selectedServer, setSelectedServer } = useSelectedServerContext();
 
   return (

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { type Server } from "./types";
 import { getServers } from "./service/server";
@@ -37,10 +37,10 @@ function App() {
           return {
             ...selectedServer,
             running:
-              message.id === selectedServer.id
-                ? message.running
-                : selectedServer.running,
-          };
+              message.id === selectedServer?.id
+                ? (message.running as boolean)
+                : (selectedServer?.running as boolean),
+          } as Server;
         });
       }
     });
@@ -49,14 +49,16 @@ function App() {
       if (event.data) {
         const message = JSON.parse(event.data);
         setSelectedServer((selectedServer) => {
-          const tempLogs = [...selectedServer.logs];
-          if (selectedServer.id === message.id) {
+          const tempLogs: string[] = selectedServer?.logs
+            ? [...selectedServer.logs]
+            : [];
+          if (selectedServer?.id === message.id) {
             tempLogs.push(message.log);
           }
           return {
             ...selectedServer,
             logs: tempLogs,
-          };
+          } as Server;
         });
       }
     });
@@ -69,17 +71,14 @@ function App() {
     return () => {
       events.close();
     };
-  }, []);
+  }, [setSelectedServer]);
 
   return (
     <div
-      className={clsx(
-        "transition transition-all duration-500 flex flex-col h-screen",
-        {
-          "bg-white text-black": !darkMode,
-          "bg-gray-600 text-white": darkMode,
-        },
-      )}
+      className={clsx("transition duration-500 flex flex-col h-screen", {
+        "bg-white text-black": !darkMode,
+        "bg-gray-600 text-white": darkMode,
+      })}
     >
       <Header />
       <div className="flex flex-row w-full h-full">

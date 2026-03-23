@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
+
 import { useDarkModeContext } from "../contexts/DarkMode";
 import clsx from "clsx";
 

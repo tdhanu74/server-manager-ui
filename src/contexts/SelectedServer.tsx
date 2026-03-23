@@ -1,18 +1,13 @@
-import {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  ReactNode,
-} from "react";
+import { createContext, useContext } from "react";
 import { type Server } from "../types";
 
 interface SelectedServerContextType {
-  selectedServer: Server;
-  setSelectedServer: (server: Server) => void;
+  selectedServer: Server | null;
+  setSelectedServer: React.Dispatch<React.SetStateAction<Server | null>>;
 }
 
-const SelectedServerContext = createContext<SelectedServerContextType | null>();
+export const SelectedServerContext =
+  createContext<SelectedServerContextType | null>(null);
 
 export const useSelectedServerContext = () => {
   const ctx = useContext(SelectedServerContext);
@@ -20,20 +15,4 @@ export const useSelectedServerContext = () => {
     throw Error("SelectedServerContext is not within SelectedServerProvider");
   }
   return ctx;
-};
-
-export const SelectedServerProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
-  const [selectedServer, setSelectedServer] = useState<Server>();
-
-  return (
-    <SelectedServerContext.Provider
-      value={{ selectedServer, setSelectedServer }}
-    >
-      {children}
-    </SelectedServerContext.Provider>
-  );
 };

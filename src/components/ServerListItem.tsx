@@ -1,4 +1,3 @@
-import { useState } from "react";
 import clsx from "clsx";
 import { type Server } from "../types";
 import { ServerStatusIcon } from "../icons";
@@ -21,7 +20,7 @@ export function ServerListItem({
   return (
     <div
       className={clsx(
-        "transition transition-all duration-300 flex flex-row justify-between items-baseline py-2 px-6 shadow-sm",
+        "transition duration-300 flex flex-row justify-between items-baseline py-2 px-6 shadow-sm",
         {
           "hover:bg-gray-200": !darkMode,
           "hover:bg-gray-700": darkMode,

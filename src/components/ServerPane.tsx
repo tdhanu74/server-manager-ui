@@ -1,11 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { useDarkModeContext } from "../contexts/DarkMode";
 import { ServerStatusIcon } from "../icons";
 import { type Server } from "../types";
 import { startServer, stopServer } from "../service/server";
 import clsx from "clsx";
 
-export function ServerPane({ server }: { server: Server }) {
+export function ServerPane({ server }: { server: Server | null }) {
   const { darkMode } = useDarkModeContext();
 
   const sentence = server?.name.replace(/-/g, " ");
@@ -17,30 +17,24 @@ export function ServerPane({ server }: { server: Server }) {
 
   return (
     <div
-      className={clsx(
-        "transition transition-all duration-500 flex flex-col w-full flex-grow",
-        {
-          "items-center justify-center": !server,
-          "bg-white text-black shadow": !darkMode,
-          "bg-gray-600 text-white": darkMode,
-        },
-      )}
+      className={clsx("transition duration-500 flex flex-col w-full grow", {
+        "items-center justify-center": !server,
+        "bg-white text-black shadow": !darkMode,
+        "bg-gray-600 text-white": darkMode,
+      })}
     >
       {server ? (
         <>
-          <div className="transition transition-all duration-300 flex flex-row justify-between items-baseline px-8 py-6">
+          <div className="transition duration-300 flex flex-row justify-between items-baseline px-8 py-6">
             <div className="flex flex-row gap-4 items-center text-2xl font-medium">
-              <div className="transition transition-all duration-300 text-[2.5rem] font-semibold pr-4">
+              <div className="transition duration-300 text-[2.5rem] font-semibold pr-4">
                 {name}
               </div>
               <div
-                className={clsx(
-                  "transition transition-all duration-300 font-regular",
-                  {
-                    "text-red-500": !server?.running,
-                    "text-green-500": server?.running,
-                  },
-                )}
+                className={clsx("transition duration-300 font-regular", {
+                  "text-red-500": !server?.running,
+                  "text-green-500": server?.running,
+                })}
               >
                 {server?.running ? "Online" : "Offline"}
               </div>
@@ -50,7 +44,7 @@ export function ServerPane({ server }: { server: Server }) {
             </div>
             <button
               className={clsx(
-                "transition transition-all duration-300 flex items-center justify-center min-w-32 max-w-48 text-xl font-semibold px-8 py-2",
+                "transition duration-300 flex items-center justify-center min-w-32 max-w-48 text-xl font-semibold px-8 py-2",
                 {
                   "border-2 text-black hover:bg-gray-300": !server?.running,
                   "bg-red-500 hover:bg-red-700 text-white": server?.running,
@@ -67,8 +61,8 @@ export function ServerPane({ server }: { server: Server }) {
               {server?.running ? "Stop Server" : "Start Server"}
             </button>
           </div>
-          <div className="transition transition-all duration-300 flex flex-col gap-1 bg-black flex-grow p-4">
-            {server?.logs.map((log) => {
+          <div className="transition duration-300 flex flex-col gap-1 bg-black grow p-4">
+            {(server?.logs ?? []).map((log) => {
               return (
                 <div
                   key={log}

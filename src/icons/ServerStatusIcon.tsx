@@ -1,5 +1,4 @@
 import { useSpring, animated } from "react-spring";
-import clsx from "clsx";
 
 export function ServerStatusIcon({ running }: { running: boolean }) {
   const properties = {
@@ -14,14 +13,9 @@ export function ServerStatusIcon({ running }: { running: boolean }) {
     springConfig: { mass: 4, tension: 250, friction: 35 },
   };
 
-  const { transform, stroke, fill } = running
+  const { stroke, fill } = running
     ? properties["online"]
     : properties["offline"];
-
-  const svgContainerProps = useSpring({
-    transform,
-    config: properties.springConfig,
-  });
 
   const circleProps = useSpring({
     stroke,
@@ -36,7 +30,6 @@ export function ServerStatusIcon({ running }: { running: boolean }) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      style={{ ...svgContainerProps }}
     >
       <animated.circle style={{ ...circleProps }} cx="12" cy="12" r="10" />
     </animated.svg>
