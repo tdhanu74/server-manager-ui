@@ -69,12 +69,12 @@ export function ServerPane({ server }: { server: Server | null }) {
               {server?.running ? "Stop Server" : "Start Server"}
             </button>
           </div>
-          <div className="transition duration-300 flex flex-col gap-1 bg-black grow p-4">
+          <div className="transition duration-300 flex flex-col gap-1 bg-black grow p-4 overflow-y-auto">
             {(server?.logs ?? []).map((log) => {
               return (
                 <div
                   key={log.id}
-                  className="border-l-3 border-green-500 text-green-500 pl-3 text-lg"
+                  className="border-l-3 border-green-500 text-green-500 pl-3 text-lg break-words"
                 >
                   {log.log}
                 </div>

@@ -85,13 +85,16 @@ function App() {
 
   return (
     <div
-      className={clsx("transition duration-500 flex flex-col h-screen", {
-        "bg-white text-black": !darkMode,
-        "bg-gray-600 text-white": darkMode,
-      })}
+      className={clsx(
+        "transition duration-500 flex flex-col h-screen max-h-screen",
+        {
+          "bg-white text-black": !darkMode,
+          "bg-gray-600 text-white": darkMode,
+        },
+      )}
     >
       <Header />
-      <div className="flex flex-row w-full h-full max-w-full">
+      <div className="flex flex-row w-full h-full max-w-full max-h-full">
         <ServerList serverList={servers} />
         <ServerPane server={selectedServer} />
       </div>
