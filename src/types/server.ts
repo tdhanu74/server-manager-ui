@@ -3,5 +3,8 @@ export type Server = {
   name: string;
   type: string;
   running: boolean;
-  logs?: string[];
+  logs?: {
+    id: string;
+    log: string;
+  }[];
 };

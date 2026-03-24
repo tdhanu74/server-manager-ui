@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDarkModeContext } from "../contexts/DarkMode";
+import { useSelectedServerContext } from "../contexts/SelectedServer";
 import { ServerStatusIcon } from "../icons";
 import { type Server } from "../types";
 import { startServer, stopServer } from "../service/server";
@@ -7,6 +8,7 @@ import clsx from "clsx";
 
 export function ServerPane({ server }: { server: Server | null }) {
   const { darkMode } = useDarkModeContext();
+  const { setSelectedServer } = useSelectedServerContext();
 
   const sentence = server?.name.replace(/-/g, " ");
   const name = sentence
@@ -52,6 +54,12 @@ export function ServerPane({ server }: { server: Server | null }) {
               )}
               onClick={() => {
                 if (!server?.running) {
+                  setSelectedServer((selectedServer) => {
+                    return {
+                      ...selectedServer,
+                      logs: [],
+                    } as Server;
+                  });
                   startServer(server.id);
                 } else {
                   stopServer(server.id);
@@ -65,10 +73,10 @@ export function ServerPane({ server }: { server: Server | null }) {
             {(server?.logs ?? []).map((log) => {
               return (
                 <div
-                  key={new Date().getTime()}
+                  key={log.id}
                   className="border-l-3 border-green-500 text-green-500 pl-3 text-lg"
                 >
-                  {log}
+                  {log.log}
                 </div>
               );
             })}

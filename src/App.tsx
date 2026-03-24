@@ -21,9 +21,10 @@ function App() {
     fetchServers();
 
     const events = new EventSource(`${import.meta.env.VITE_SERVER_URL}/events`);
-    events.addEventListener("update", (event) => {
-      if (event.data) {
-        const message = JSON.parse(event.data);
+    events.addEventListener("update", (event: Event) => {
+      const updateEvent = event as MessageEvent;
+      if (updateEvent.data) {
+        const message = JSON.parse(updateEvent.data);
         setServers((servers) =>
           servers.map((server) => {
             return {
@@ -38,22 +39,31 @@ function App() {
             ...selectedServer,
             running:
               message.id === selectedServer?.id
-                ? (message.running as boolean)
-                : (selectedServer?.running as boolean),
+                ? message.running
+                : selectedServer?.running,
           } as Server;
         });
       }
     });
 
-    events.addEventListener("log", (event) => {
-      if (event.data) {
-        const message = JSON.parse(event.data);
+    events.addEventListener("log", (event: Event) => {
+      const logEvent = event as MessageEvent;
+      if (
+        logEvent.data &&
+        !selectedServer?.logs?.filter((log) => {
+          return logEvent.lastEventId === log.id;
+        })
+      ) {
+        const message = JSON.parse(logEvent.data);
         setSelectedServer((selectedServer) => {
-          const tempLogs: string[] = selectedServer?.logs
+          const tempLogs: { id: string; log: string }[] = selectedServer?.logs
             ? [...selectedServer.logs]
             : [];
           if (selectedServer?.id === message.id) {
-            tempLogs.push(message.log);
+            tempLogs.push({
+              id: logEvent.lastEventId,
+              log: message.log,
+            });
           }
           return {
             ...selectedServer,
@@ -81,7 +91,7 @@ function App() {
       })}
     >
       <Header />
-      <div className="flex flex-row w-full h-full">
+      <div className="flex flex-row w-full h-full max-w-full">
         <ServerList serverList={servers} />
         <ServerPane server={selectedServer} />
       </div>

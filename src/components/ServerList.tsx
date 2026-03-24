@@ -14,8 +14,10 @@ export function ServerList({ serverList }: { serverList: Server[] }) {
             key={server.id}
             server={server}
             click={async () => {
-              const logs = await getLogs(server.id);
-              setSelectedServer({ ...server, logs: logs });
+              if (selectedServer?.id !== server.id) {
+                const logs = await getLogs(server.id);
+                setSelectedServer({ ...server, logs: logs });
+              }
             }}
             selected={selectedServer?.id === server.id}
           />

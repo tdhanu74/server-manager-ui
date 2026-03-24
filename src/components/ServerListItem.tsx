@@ -24,7 +24,8 @@ export function ServerListItem({
         {
           "hover:bg-gray-200": !darkMode,
           "hover:bg-gray-700": darkMode,
-          "bg-gray-200": selected,
+          "bg-gray-200 cursor-default": selected,
+          "cursor-pointer": !selected,
         },
       )}
       onClick={click}
