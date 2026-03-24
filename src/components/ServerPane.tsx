@@ -65,7 +65,7 @@ export function ServerPane({ server }: { server: Server | null }) {
             {(server?.logs ?? []).map((log) => {
               return (
                 <div
-                  key={log}
+                  key={new Date().getTime()}
                   className="border-l-3 border-green-500 text-green-500 pl-3 text-lg"
                 >
                   {log}
