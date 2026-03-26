@@ -86,7 +86,12 @@ export function ServerPane({ server }: { server: Server | null }) {
           </div>
         </>
       ) : (
-        <div className="text-[2.5rem] text-gray-300 font-semibold">
+        <div
+          className={clsx("text-[2.5rem] font-semibold", {
+            "text-dark-700": darkMode,
+            "text-gray-300": !darkMode,
+          })}
+        >
           No Server Selected
         </div>
       )}
