@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-dark-500: oklch(0.2062 0 92.12);
+  --color-dark-500: #171717;
+  --color-dark-700: #232323;
   --font-forced-square: "FORCED SQUARE", sans-serif;
 }
 

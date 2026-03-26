@@ -23,9 +23,11 @@ export function ServerListItem({
         "transition duration-300 flex flex-row justify-between items-baseline py-2 px-6 shadow-sm",
         {
           "hover:bg-gray-200": !darkMode,
-          "hover:bg-gray-700": darkMode,
-          "bg-gray-200 cursor-default": selected,
+          "hover:bg-dark-700 shadow-dark-700": darkMode,
+          "cursor-default": selected,
           "cursor-pointer": !selected,
+          "bg-gray-200": !darkMode && selected,
+          "bg-dark-700": darkMode && selected,
         },
       )}
       onClick={click}

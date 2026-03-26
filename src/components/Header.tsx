@@ -8,10 +8,9 @@ export function Header() {
   return (
     <div
       className={clsx(
-        "transition trasition-all duration-500 flex flex-row w-full py-4 px-6 justify-between z-20",
+        "transition duration-500 flex flex-row w-full py-4 px-6 justify-between z-20 shadow-sm",
         {
-          "shadow-sm": !darkMode,
-          "bg-dark-500": darkMode,
+          "bg-dark-500 shadow-dark-700": darkMode,
         },
       )}
     >

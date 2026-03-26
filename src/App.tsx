@@ -89,7 +89,7 @@ function App() {
         "transition duration-500 flex flex-col h-screen max-h-screen",
         {
           "bg-white text-black": !darkMode,
-          "bg-gray-600 text-white": darkMode,
+          "bg-dark-500 text-white": darkMode,
         },
       )}
     >

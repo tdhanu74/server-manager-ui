@@ -22,7 +22,7 @@ export function ServerPane({ server }: { server: Server | null }) {
       className={clsx("transition duration-500 flex flex-col w-full grow", {
         "items-center justify-center": !server,
         "bg-white text-black shadow": !darkMode,
-        "bg-gray-600 text-white": darkMode,
+        "bg-dark-500 text-white": darkMode,
       })}
     >
       {server ? (
@@ -48,8 +48,11 @@ export function ServerPane({ server }: { server: Server | null }) {
               className={clsx(
                 "transition duration-300 flex items-center justify-center min-w-32 max-w-48 text-xl font-semibold px-8 py-2",
                 {
-                  "border-2 text-black hover:bg-gray-300": !server?.running,
+                  "border-2 text-black hover:bg-gray-300":
+                    !server?.running && !darkMode,
                   "bg-red-500 hover:bg-red-700 text-white": server?.running,
+                  "border-2 border-white text-white hover:bg-dark-700":
+                    !server?.running && darkMode,
                 },
               )}
               onClick={() => {
@@ -69,12 +72,12 @@ export function ServerPane({ server }: { server: Server | null }) {
               {server?.running ? "Stop Server" : "Start Server"}
             </button>
           </div>
-          <div className="transition duration-300 flex flex-col gap-1 bg-black grow p-4 overflow-y-auto">
+          <div className="transition duration-300 flex flex-col gap-1 bg-black grow p-4 overflow-auto">
             {(server?.logs ?? []).map((log) => {
               return (
                 <div
                   key={log.id}
-                  className="border-l-3 border-green-500 text-green-500 pl-3 text-lg break-words"
+                  className="border-l-3 border-green-500 text-green-500 pl-3 text-lg"
                 >
                   {log.log}
                 </div>
