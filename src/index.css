@@ -3,7 +3,8 @@
 @theme {
   --color-dark-500: #171717;
   --color-dark-700: #232323;
-  --font-forced-square: "FORCED SQUARE", sans-serif;
+  --font-forced-square: forced-square, sans-serif;
+  --font-cascadia-mono: cascadia-mono, mono;
 }
 
 @font-face {
@@ -11,8 +12,15 @@
   src: url("/fonts/forced-square.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "cascadia-mono";
+  src: url("/fonts/cascadia-mono.ttf") format("truetype");
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif, forced-sqaure;
+  font-family:
+    system-ui, Avenir, Helvetica, Arial, sans-serif, forced-sqaure,
+    cascadia-mono;
   line-height: 1.5;
   font-weight: 400;
   height: 100vh;

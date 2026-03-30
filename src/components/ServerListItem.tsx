@@ -32,7 +32,7 @@ export function ServerListItem({
       )}
       onClick={click}
     >
-      <div className="text-lg font-[forced-square]">{name}</div>
+      <div className="text-lg font-forced-square">{name}</div>
       <div className="flex flex-row gap-2 items-baseline cursor-default">
         <div
           className={clsx("font-light text-sm", {

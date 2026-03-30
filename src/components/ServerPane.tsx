@@ -77,7 +77,7 @@ export function ServerPane({ server }: { server: Server | null }) {
               return (
                 <div
                   key={log.id}
-                  className="border-l-3 border-green-500 text-green-500 pl-3 text-lg"
+                  className="font-cascadia-mono max-w-full border-l-3 border-green-500 text-green-500 pl-3 text-sm wrap-anywhere"
                 >
                   {log.log}
                 </div>
